@@ -1,6 +1,9 @@
 # Deployment Guide for Aya E-commerce
 
-This guide will help you deploy the Aya E-commerce application on your VPS using Docker.
+This guide will help you deploy the Aya E-commerce application on your VPS using Docker. The application is split into two parts:
+
+1. **Frontend**: A Next.js application that handles the user interface
+2. **Backend API**: An Express.js server that handles data operations
 
 ## Prerequisites
 

@@ -1,8 +1,9 @@
 version: '3.8'
 
 services:
-  app:
-    container_name: aya-ecommerce-app
+  # Frontend Next.js application
+  frontend:
+    container_name: aya-ecommerce-frontend
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,14 +11,38 @@ services:
     ports:
       - "3000:3000"
     depends_on:
+      - api
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://api:5000
+    networks:
+      - aya-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+      
+  # Backend Express.js API server
+  api:
+    container_name: aya-ecommerce-api
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
       - db
     environment:
       - NODE_ENV=production
+      - PORT=5000
       - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@db:5432/aya_ecommerce?schema=public
     networks:
       - aya-network
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5000/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { welcomeFormAPI } from '@/lib/apiClient';
 
 // Mock database for demonstration purposes - in a real app, this would come from your backend
 const MOCK_REGISTERED_EMAILS = [
@@ -69,23 +70,11 @@ export default function Welcome() {
     setError('');
 
     try {
-      const response = await fetch('/api/welcome-form', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        // Check if the error is due to a duplicate email
-        if (data.code === 'EMAIL_EXISTS' || data.error?.toLowerCase().includes('email already exists') || response.status === 409) {
-          throw new Error('This email is already registered. Please use a different email address.');
-        }
-        throw new Error(data.error || 'Something went wrong');
-      }
+      // Use the API client instead of direct fetch
+      await welcomeFormAPI.submit(formData);
+      
+      // If we get here, the submission was successful
+      // The error handling for duplicate emails is now in the Express API
 
       setSuccess(true);
       setShowModal(true); // Show popup modal
