@@ -1,11 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable static exports for improved performance
-  output: 'export',
+  // Do not use static export for Docker deployment
+  // output: 'export',
   
   // Configure image domains for Next.js Image component
   images: {
-    unoptimized: true, // For static export
     domains: ['images.unsplash.com'],
   },
   
@@ -17,6 +16,11 @@ const nextConfig = {
   // Configure webpack to handle CSS properly
   webpack: (config) => {
     return config;
+  },
+  
+  // Make sure Next.js listens on all network interfaces in Docker
+  experimental: {
+    outputStandalone: true,
   },
 };
 

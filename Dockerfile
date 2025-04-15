@@ -52,5 +52,5 @@ EXPOSE 3000
 # Add healthcheck
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1
 
-# Start the application
-CMD ["npm", "start"]
+# Start the application with explicit host binding to make it accessible from outside the container
+CMD ["npm", "run", "start", "--", "-H", "0.0.0.0"]
