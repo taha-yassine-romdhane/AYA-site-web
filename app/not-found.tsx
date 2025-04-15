@@ -33,7 +33,7 @@ export default function NotFound() {
           
           <h1 className="text-3xl font-bold text-[#302620] mb-2">Page Not Found</h1>
           <p className="text-[#612A22] mb-6">
-            We're sorry, but the page you're looking for doesn't exist yet. Our website is still in development mode.
+            We&apos;re sorry, but the page you&apos;re looking for doesn&apos;t exist yet. Our website is still in development mode.
           </p>
           
           <div className="mb-6 p-4 bg-[#948C7A]/30 rounded-md">

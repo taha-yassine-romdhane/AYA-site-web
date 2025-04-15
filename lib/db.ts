@@ -16,10 +16,17 @@ export interface WelcomeFormSubmission extends WelcomeFormData {
   updatedAt: string;
 }
 
+// Define a type for the Prisma client with dynamic properties
+type PrismaClientWithDynamicModels = PrismaClient & {
+  welcomeFormSubmission?: {
+    create: (args: { data: WelcomeFormData }) => Promise<WelcomeFormSubmission>
+  }
+};
+
 // Initialize Prisma client with error handling
-let prisma: PrismaClient | null = null;
+let prisma: PrismaClientWithDynamicModels | null = null;
 try {
-  prisma = new PrismaClient();
+  prisma = new PrismaClient() as PrismaClientWithDynamicModels;
 } catch (error) {
   console.error('Failed to initialize Prisma client:', error);
 }
@@ -65,11 +72,11 @@ export async function saveSubmissionToFile(submission: WelcomeFormData): Promise
 // Function to save a welcome form submission
 export async function saveWelcomeFormSubmission(data: WelcomeFormData): Promise<{
   success: boolean;
-  submission?: any;
+  submission?: WelcomeFormSubmission | null;
   usedFallback: boolean;
   error?: string;
 }> {
-  let submission;
+  let submission: WelcomeFormSubmission | null = null;
   let usedFallback = false;
   
   // Try to use Prisma if available
@@ -77,7 +84,7 @@ export async function saveWelcomeFormSubmission(data: WelcomeFormData): Promise<
     try {
       // Check if the welcomeFormSubmission model exists in the Prisma client
       if ('welcomeFormSubmission' in prisma) {
-        // @ts-ignore - We're handling this dynamically
+        // @ts-expect-error - We're handling this dynamically since the model might not be in the type definitions
         submission = await prisma.welcomeFormSubmission.create({
           data
         });

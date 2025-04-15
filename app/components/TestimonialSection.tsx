@@ -3,12 +3,12 @@
 export default function TestimonialSection() {
   const testimonials = [
     {
-      text: "The scrubs I purchased are the most comfortable I've ever worn. The quality is exceptional and they've held up well after multiple washes.",
+      text: "The scrubs I purchased are the most comfortable I&apos;ve ever worn. The quality is exceptional and they&apos;ve held up well after multiple washes.",
       name: "Dr. Sarah Johnson",
       position: "Medical Resident"
     },
     {
-      text: "Their event management team helped us organize our medical school's annual conference. Everything was perfect, from venue selection to catering.",
+      text: "Their event management team helped us organize our medical school&apos;s annual conference. Everything was perfect, from venue selection to catering.",
       name: "Mark Thompson",
       position: "Student Association President"
     },

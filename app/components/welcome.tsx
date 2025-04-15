@@ -8,7 +8,6 @@ const MOCK_REGISTERED_EMAILS = [
   "test@example.com",
   "user@domain.com"
 ];
-import { useRouter } from 'next/navigation';
 
 const faculties = [
   "Université de Tunis El Manar - Tunis FMT",
@@ -99,8 +98,8 @@ export default function Welcome() {
 
       // Optionally auto-close modal after a delay
       // setTimeout(() => setShowModal(false), 4000);
-    } catch (err: any) {
-      setError(err.message || 'Failed to submit form');
+    } catch  {
+      setError('Failed to submit form');
     } finally {
       setLoading(false);
     }

@@ -15,7 +15,7 @@ export async function GET() {
     });
     
     return NextResponse.json(users);
-  } catch (error) {
+  } catch  {
     return NextResponse.json({ error: 'Failed to fetch users' }, { status: 500 });
   }
 }
@@ -56,7 +56,7 @@ export async function POST(request: Request) {
     });
     
     return NextResponse.json(user);
-  } catch (error) {
+  } catch  {
     return NextResponse.json({ error: 'Failed to create user' }, { status: 500 });
   }
 }
