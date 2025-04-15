@@ -2,21 +2,14 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import prisma from '@/lib/prisma';
 
-// Define the correct context type for Next.js 15
-type Context = {
-  params: {
-    id: string;
-  }
-};
-
 export async function GET(
   request: NextRequest,
-  context: Context
+  { params }: { params: { id: string } }
 ) {
   try {
     const product = await prisma.product.findUnique({
       where: {
-        id: context.params.id,
+        id: params.id,
       },
       include: {
         category: true,
@@ -46,7 +39,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  context: Context
+  { params }: { params: { id: string } }
 ) {
   try {
     const body = await request.json();
@@ -54,7 +47,7 @@ export async function PUT(
     
     const product = await prisma.product.update({
       where: {
-        id: context.params.id,
+        id: params.id,
       },
       data: {
         name,
@@ -74,12 +67,12 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  context: Context
+  { params }: { params: { id: string } }
 ) {
   try {
     await prisma.product.delete({
       where: {
-        id: context.params.id,
+        id: params.id,
       },
     });
     

@@ -1,5 +1,5 @@
 /**
- * API client for communicating with the Express backend
+ * API client for communicating with the Next.js API routes
  */
 
 // Type definitions for API requests and responses
@@ -66,8 +66,9 @@ interface WelcomeFormResponse {
   note?: string;
 }
 
-// Get the API URL from environment variables or use a default for local development
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+// Use relative URLs for Next.js API routes
+// No need for external API URL since we're using Next.js API routes
+const API_URL = '';
 
 /**
  * Generic fetch function with error handling
