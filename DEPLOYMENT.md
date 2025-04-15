@@ -1,4 +1,4 @@
-# Deployment Guide for Aya E-commerce
+# Deployment Guide for casalogystore.com for Aya E-commerce
 
 This guide will help you deploy the Aya E-commerce application on your VPS using Docker. The application is split into two parts:
 
@@ -7,8 +7,10 @@ This guide will help you deploy the Aya E-commerce application on your VPS using
 
 ## Prerequisites
 
-- A VPS with Docker and Docker Compose installed
-- Git installed on your VPS
+- A VPS with at least 2GB RAM and 1 CPU core
+- Docker and Docker Compose installed on the VPS
+- Git installed on the VPS
+- Domain name: casalogystore.com (already acquired)
 - Basic knowledge of Docker, Docker Compose, and Linux commands
 
 ## Environment Variables
