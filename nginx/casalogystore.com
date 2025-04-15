@@ -22,7 +22,7 @@ server {
     
     # Frontend proxy
     location / {
-        proxy_pass http://localhost:8080;
+        proxy_pass http://172.17.0.1:8080;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -32,7 +32,7 @@ server {
     
     # API proxy
     location /api/ {
-        proxy_pass http://localhost:5000;
+        proxy_pass http://172.17.0.1:5000;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
