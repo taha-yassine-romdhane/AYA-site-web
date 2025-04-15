@@ -33,7 +33,7 @@ export default function TestimonialSection() {
                   </svg>
                 ))}
               </div>
-              <p className="text-[#775F4E] mb-6">"{testimonial.text}"</p>
+              <p className="text-[#775F4E] mb-6">&quot;{testimonial.text}&quot;</p>
               <div>
                 <p className="font-semibold text-[#302620]">{testimonial.name}</p>
                 <p className="text-[#948C7A] text-sm">{testimonial.position}</p>
