@@ -9,8 +9,7 @@ services:
       dockerfile: ./nginx/Dockerfile
     restart: always
     ports:
-      - "80:80"
-      - "443:443"
+      - "8080:80"
     volumes:
       - ./ssl:/etc/nginx/ssl:ro
     environment:
