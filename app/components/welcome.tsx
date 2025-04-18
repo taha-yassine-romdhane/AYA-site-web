@@ -106,7 +106,7 @@ export default function Welcome() {
                 <path d="M16 24l6 6 10-10" stroke="#775F4E" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
               <h3 className="text-2xl font-bold text-[#302620] mb-1">Congratulations!</h3>
-              <p className="text-[#612A22] font-medium mb-2">You've signed up and will receive a <span className="text-[#775F4E] font-bold">special discount</span> when we launch!</p>
+              <p className="text-[#612A22] font-medium mb-2">You&aposve signed up and will receive a <span className="text-[#775F4E] font-bold">special discount</span> when we launch!</p>
               <button
                 onClick={() => setShowModal(false)}
                 className="mt-4 px-6 py-2 bg-[#775F4E] text-white rounded-md font-semibold hover:bg-[#612A22] transition"
