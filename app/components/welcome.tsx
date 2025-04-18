@@ -3,12 +3,8 @@
 import { useState, useEffect } from 'react';
 import { welcomeFormAPI } from '@/lib/apiClient';
 
-// Mock database for demonstration purposes - in a real app, this would come from your backend
-const MOCK_REGISTERED_EMAILS = [
-  "taha.romdhane1999@gmail.com",
-  "test@example.com",
-  "user@domain.com"
-];
+// We'll fetch registered emails from the database
+// This will be handled by the API route
 
 const faculties = [
   "Université de Tunis El Manar - Tunis FMT",
@@ -31,6 +27,7 @@ export default function Welcome() {
     faculty: ''
   });
   const [loading, setLoading] = useState(false);
+  const [checkingEmail, setCheckingEmail] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
   const [emailError, setEmailError] = useState(false);
@@ -43,10 +40,11 @@ export default function Welcome() {
       setEmailError(false);
       setError('');
       
-      // Check if email already exists in our mock database
-      if (value && MOCK_REGISTERED_EMAILS.includes(value.toLowerCase().trim())) {
-        setEmailError(true);
-        setError('This email is already registered. Please use a different email address.');
+      // Check if email already exists in our database
+      if (value && value.includes('@')) {
+        setCheckingEmail(true);
+        // We'll check this on the server side during form submission
+        // This could also be done with a separate API endpoint to check email availability
       }
     }
     
@@ -58,13 +56,6 @@ export default function Welcome() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Check for duplicate email before submitting
-    if (MOCK_REGISTERED_EMAILS.includes(formData.email.toLowerCase().trim())) {
-      setEmailError(true);
-      setError('This email is already registered. Please use a different email address.');
-      return;
-    }
     
     setLoading(true);
     setError('');

@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Casalogy Store | Handcrafted Home Decor",
-  description: "Discover premium handcrafted home decor with Casalogy Store. Unique pieces that tell a story.",
+  title: "Casalogy Store | All you need as health care professional",
+  description: "Discover premium experience with Casalogy Store. Each unique piece tell a story.",
   icons: {
     icon: [
       { url: "/favicon.ico" },

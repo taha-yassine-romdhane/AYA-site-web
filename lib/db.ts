@@ -34,9 +34,35 @@ try {
 // Fallback storage for form submissions when database is unavailable
 const SUBMISSIONS_FILE = path.join(process.cwd(), 'data', 'welcome-submissions.json');
 
+// Helper function to check for duplicate emails in the file storage
+export async function checkDuplicateEmail(email: string): Promise<boolean> {
+  try {
+    if (!fs.existsSync(SUBMISSIONS_FILE)) {
+      return false; // No submissions file exists yet
+    }
+    
+    const data = fs.readFileSync(SUBMISSIONS_FILE, 'utf8');
+    const submissions: WelcomeFormSubmission[] = JSON.parse(data);
+    
+    // Check if email already exists (case insensitive)
+    return submissions.some(sub => 
+      sub.email.toLowerCase() === email.toLowerCase().trim()
+    );
+  } catch (error) {
+    console.error('Error checking for duplicate email:', error);
+    return false; // Continue if there's an error reading the file
+  }
+}
+
 // Helper function to save submissions to a JSON file when DB is unavailable
 export async function saveSubmissionToFile(submission: WelcomeFormData): Promise<WelcomeFormSubmission | null> {
   try {
+    // Check for duplicate email first
+    const isDuplicate = await checkDuplicateEmail(submission.email);
+    if (isDuplicate) {
+      throw new Error('This email is already registered. Please use a different email address.');
+    }
+    
     // Create directory if it doesn't exist
     const dir = path.dirname(SUBMISSIONS_FILE);
     if (!fs.existsSync(dir)) {
@@ -102,13 +128,21 @@ export async function saveWelcomeFormSubmission(data: WelcomeFormData): Promise<
 
   // Use file storage as fallback
   if (usedFallback) {
-    submission = await saveSubmissionToFile(data);
-    
-    if (!submission) {
+    try {
+      submission = await saveSubmissionToFile(data);
+      
+      if (!submission) {
+        return {
+          success: false,
+          usedFallback: true,
+          error: 'Failed to save submission to file'
+        };
+      }
+    } catch (error) {
       return {
         success: false,
         usedFallback: true,
-        error: 'Failed to save submission to file'
+        error: error instanceof Error ? error.message : 'Failed to save submission to file'
       };
     }
   }

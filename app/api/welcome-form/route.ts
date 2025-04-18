@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { saveWelcomeFormSubmission, WelcomeFormData } from '@/lib/db';
+import prisma from '@/lib/prisma';
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,6 +14,9 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+    
+    // Since we're using file storage, we'll check for duplicate emails there
+    // This is handled in the saveWelcomeFormSubmission function
 
     // Save the submission using our data access layer
     const formData: WelcomeFormData = { fullName, email, phoneNumber, faculty };
